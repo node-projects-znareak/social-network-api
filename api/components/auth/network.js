@@ -3,13 +3,12 @@ const router = express.Router();
 const { success, error } = require("../../../network/response");
 const { login, upsert } = require("./index");
 
-router.post("/login", (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
-    const data = login(username, password);
+    const data = await login(username, password, res);
     success(req, res, data);
   } catch (err) {
-    console.log(err);
     error(req, res, err);
   }
 });

@@ -5,51 +5,27 @@ const { list, get, remove, upsert, update } = require("./index");
 const secure = require("./secure");
 
 router.get("/", (req, res) => {
-  try {
-    success(req, res, list());
-  } catch (err) {
-    error(req, res, err);
-  }
+  success(req, res, list());
 });
 
 router.get("/:id", (req, res) => {
   const userId = req.params.id;
-  try {
-    success(req, res, get(userId));
-  } catch (err) {
-    console.log(err);
-    error(req, res, err);
-  }
+  success(req, res, get(userId));
 });
 
 router.post("/", (req, res) => {
   const user = req.body;
-  try {
-    success(req, res, upsert(user), 201);
-  } catch (err) {
-    console.log(err);
-    error(req, res, err);
-  }
+  success(req, res, upsert(user), 201);
 });
 
 router.delete("/:id", (req, res) => {
   const userId = req.params.id;
-  try {
-    success(req, res, remove(userId));
-  } catch (err) {
-    console.log(err);
-    error(req, res, err);
-  }
+  success(req, res, remove(userId));
 });
 
 router.put("/:id", secure("update"), (req, res) => {
   const userId = req.params.id;
   const payload = req.body;
-  try {
-    success(req, res, update(userId, payload));
-  } catch (err) {
-    console.log(err);
-    error(req, res, err);
-  }
+  success(req, res, update(userId, payload));
 });
 module.exports = router;

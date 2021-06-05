@@ -31,7 +31,7 @@ function upsert(table, data) {
 
 function update(table, id, payload) {
   const collection = list(table);
-  const item = collection.find((item) => item.id === id);
+  const item = collection.find((item) => item.id === id); 
   const filter = collection.filter((item) => item.id !== id);
   const newItem = { ...item, ...payload };
   filter.push(newItem);

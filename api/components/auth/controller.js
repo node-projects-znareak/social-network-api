@@ -5,6 +5,7 @@ const { error } = require("../../../network/response");
 module.exports = (store = require("../../../store/dummy")) => {
   const TABLE = "auth";
   return {
+    // this functions is used in user's controller
     async upsert(payload) {
       const { password, username, id } = payload;
       const authPayload = { id };
@@ -21,6 +22,7 @@ module.exports = (store = require("../../../store/dummy")) => {
         else return "Invalid payload";
       } catch (err) {
         error(null, res, "Verifique los campos: 'username' y 'password'", 400);
+        return true;
       }
     },
   };

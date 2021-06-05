@@ -33,6 +33,11 @@ module.exports = (store = require("../../../store/dummy")) => {
       return store.upsert(TABLE, user);
     },
 
+    update(id, payload) {
+      const user = store.update(TABLE, id, payload);
+      return user;
+    },
+
     remove(id) {
       return store.remove(TABLE, id);
     },

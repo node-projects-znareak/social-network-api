@@ -25,9 +25,18 @@ function remove(table, id) {
 function upsert(table, data) {
   const collection = list(table);
   collection.push(data);
-
   console.log(db);
   return data;
+}
+
+function update(table, id, payload) {
+  const collection = list(table);
+  const item = collection.find((item) => item.id === id);
+  const filter = collection.filter((item) => item.id !== id);
+  const newItem = { ...item, ...payload };
+  filter.push(newItem);
+  db.users = filter;
+  return newItem;
 }
 
 function query(table, queryObj) {
@@ -46,5 +55,6 @@ module.exports = {
   get,
   remove,
   upsert,
+  update,
   query,
 };

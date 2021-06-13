@@ -1,16 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const { success, error } = require("../../../network/response");
+const { success } = require("../../../network/response");
 const { list, get, remove, upsert, update } = require("./index");
 const secure = require("./secure");
 
-router.get("/", (req, res) => {
-  success(req, res, list());
+router.get("/", async (req, res) => {
+  const users = await list();
+  success(req, res, users);
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", async (req, res) => {
   const userId = req.params.id;
-  success(req, res, get(userId));
+  const user = await get(userId);
+  success(req, res, user);
 });
 
 router.post("/", (req, res) => {

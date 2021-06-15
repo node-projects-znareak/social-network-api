@@ -12,7 +12,7 @@ module.exports = (store = require("../../../store/dummy")) => {
       return store.get(TABLE, id);
     },
 
-    upsert(payload) {
+    async upsert(payload, isNew=false) {
       const user = {
         name: payload.name,
         username: payload.username,
@@ -22,7 +22,7 @@ module.exports = (store = require("../../../store/dummy")) => {
 
       // Save the new user in the auth table
       if (payload.password || user.username) {
-        auth.upsert({
+        await auth.upsert({
           id: user.id,
           name: user.name,
           username: user.username,
@@ -30,11 +30,12 @@ module.exports = (store = require("../../../store/dummy")) => {
         });
       }
 
-      return store.upsert(TABLE, user);
+      return store.upsert(TABLE, user, isNew);
     },
 
     update(id, payload) {
-      const user = store.update(TABLE, id, payload);
+      const data = { id, ...payload };
+      const user = store.update(TABLE, data);
       return user;
     },
 

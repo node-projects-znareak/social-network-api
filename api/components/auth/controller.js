@@ -11,12 +11,12 @@ module.exports = (store = require("../../../store/dummy")) => {
       const authPayload = { id };
       if (username) authPayload.username = username;
       if (password) authPayload.password = await bcrypt.hash(password, 6);
-      return store.upsert(TABLE, authPayload);
+      return store.upsert(TABLE, authPayload, true);
     },
 
     async login(username, password, res) {
       try {
-        const data = store.query(TABLE, { username });
+        const data = await store.query(TABLE, { username });
         const compare = await bcrypt.compare(password, data.password);
         if (compare) return sign(data);
         else return "Invalid payload";

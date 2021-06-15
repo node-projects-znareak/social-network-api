@@ -10,14 +10,15 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  const userId = req.params.id;
+  const userId = req.params.id; 
   const user = await get(userId);
   success(req, res, user);
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const user = req.body;
-  success(req, res, upsert(user), 201);
+  const userCreated = await upsert(user, true);
+  success(req, res, userCreated, 201);
 });
 
 router.delete("/:id", (req, res) => {
@@ -25,9 +26,10 @@ router.delete("/:id", (req, res) => {
   success(req, res, remove(userId));
 });
 
-router.put("/:id", secure("update"), (req, res) => {
+router.put("/:id", secure("update"), async (req, res) => {
   const userId = req.params.id;
   const payload = req.body;
-  success(req, res, update(userId, payload));
+  const updated = await update(userId, payload);
+  success(req, res, updated);
 });
 module.exports = router;

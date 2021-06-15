@@ -12,7 +12,7 @@ module.exports = (store = require("../../../store/dummy")) => {
       return store.get(TABLE, id);
     },
 
-    async upsert(payload, isNew=false) {
+    async upsert(payload, isNew = false) {
       const user = {
         name: payload.name,
         username: payload.username,
@@ -34,8 +34,7 @@ module.exports = (store = require("../../../store/dummy")) => {
     },
 
     update(id, payload) {
-      const data = { id, ...payload };
-      const user = store.update(TABLE, data);
+      const user = store.update(TABLE, payload, id);
       return user;
     },
 

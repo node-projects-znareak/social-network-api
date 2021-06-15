@@ -55,11 +55,11 @@ function insert(table, data) {
   });
 }
 
-function update(table, data) {
+function update(table, data, id) {
   return new Promise((resolve, reject) => {
     connection.query(
-      `UPDATE TABLE ${table} SET ? WHERE id=?`,
-      [data, data.id],
+      `UPDATE ${table} SET ? WHERE id=?`,
+      [data, id],
       (err, result) => {
         if (err) return reject(err);
         resolve(result);

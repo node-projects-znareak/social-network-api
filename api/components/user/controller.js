@@ -1,7 +1,7 @@
 const { nanoid } = require("nanoid");
 const auth = require("../auth");
 const TABLE = "users";
-
+const TABLE_FOLLOW = TABLE + "_follow";
 module.exports = (store = require("../../../store/dummy")) => {
   return {
     list() {
@@ -36,6 +36,23 @@ module.exports = (store = require("../../../store/dummy")) => {
     update(id, payload) {
       const user = store.update(TABLE, payload, id);
       return user;
+    },
+
+    follow(from, to) {
+      return store.upsert(
+        TABLE_FOLLOW,
+        {
+          user_from: from,
+          user_to: to,
+        },
+        true
+      );
+    },
+
+    followers(id) {
+      const join = { [TABLE]: "user_to" };
+      const query = { user_from: id };
+      return store.query(TABLE_FOLLOW, query, join);
     },
 
     remove(id) {

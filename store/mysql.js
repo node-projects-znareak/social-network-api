@@ -68,14 +68,24 @@ function update(table, data, id) {
   });
 }
 
-function query(table, q) {
+function query(table, q, join) {
+  let joinQuery = "";
+  if (join) {
+    const key = Object.keys(join)[0];
+    const val = join[key];
+    joinQuery = `JOIN ${key} ON ${table}.${val}=${key}.id`;
+  }
   return new Promise((resolve, reject) => {
-    connection.query(`SELECT * FROM ${table} WHERE ?`, q, (err, result) => {
-      if (err) return reject(err);
-      let output = null;
-      if (result.length > 0) output = { ...result[0] };
-      resolve(output);
-    });
+    connection.query(
+      `SELECT * FROM ${table} ${joinQuery} WHERE ?`,
+      q,
+      (err, result) => {
+        if (err) return reject(err);
+        let output = null;
+        if (result.length > 0) output = { ...result[0] };
+        resolve(output);
+      }
+    );
   });
 }
 

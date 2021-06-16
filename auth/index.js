@@ -31,6 +31,13 @@ const auth = {
 
       if (decode.id !== owner) throw new Error("Forbbiden for this client!");
     },
+
+    logged(req) {
+      const decode = auth.decode(req);
+      req.user = {
+        id: decode.id,
+      };
+    },
   },
 };
 

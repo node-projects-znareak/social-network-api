@@ -9,9 +9,13 @@ module.exports = function checkAuth(action) {
         next();
         break;
 
+      case "token":
+        auth.check.logged(req);
+        next();
+        break;
+
       default:
         next();
     }
   };
 };
- 

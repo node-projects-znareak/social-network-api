@@ -12,4 +12,8 @@ module.exports = {
     password: env.PASSWORD || "",
     database: env.DATABASE || "social-network-node",
   },
+
+  mysqlService: {
+    port: env.MYSQL_SERVICE || 3000,
+  },
 };

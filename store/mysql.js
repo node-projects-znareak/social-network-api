@@ -15,7 +15,7 @@ function handleConnection() {
         tries++;
       }, 3000);
     } else {
-      console.log("DB CONNECTED!");
+      console.log("Base de datos conectada!");
     }
   };
 

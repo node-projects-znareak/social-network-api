@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "open-cli http://localhost:4000/api/user && nodemon ./api/index"
+    "start":"npx pm2 start api/index.js && npx pm2 start mysql/index.js && npx pm2 start post/index.js",
+    "stop": "npx pm2 kill",
+    "status" : "npx pm2 status"
   },
   "keywords": [],
   "author": "",

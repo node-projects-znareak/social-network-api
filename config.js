@@ -7,7 +7,7 @@ const config = {
   JWT_SECRET: env.JWT_SECRET || "RGGJLnuiHS6EWZxZUAujxI2Jqqrq8z3TNNcGSjJK",
 
   mysql: {
-    port: env.PORT || 80,
+    port: env.PORT || 3306,
     host: env.HOST || "localhost",
     user: env.USER || "root",
     password: env.PASSWORD || "",
